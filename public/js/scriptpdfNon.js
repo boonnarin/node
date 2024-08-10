@@ -56,7 +56,7 @@ function makepdf() {
                 ], style: 'indent'
             },
             { text: "คำแนะนำเพื่อลดความเสี่ยงการเกิดโรคหัวใจและหลอดเลือดในอนาคต สำหรับท่าน", bold: true, fontSize: 15 },
-            { text: ysbpp , style: 'indent' },
+            { text: ysbpp, style: 'indent' },
             { text: ybmip, style: 'indent' },
             { text: ysmkp, style: 'indent' },
             { text: "คำเเนะนำทั่วไป", bold: true, fontSize: 15 },
@@ -110,7 +110,16 @@ function makepdf() {
             font: "Sarabun",
         },
     };
-    pdfMake.createPdf(docdefinition).print();//.dowlond//.open();
+    // pdfMake.createPdf(docdefinition).print();//.dowlond//.open();
+    const pdfDocGenerator = pdfMake.createPdf(docdefinition);
+    pdfDocGenerator.getBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
 
     // ทำสิ่งที่คุณต้องการกับค่าที่ได้รับ
 }

@@ -115,7 +115,16 @@ function makepdf() {
             font: "Sarabun",
         },
     };
-    pdfMake.createPdf(docdefinition).print();//.dowlond//.open();
+    // pdfMake.createPdf(docdefinition).print();//.dowlond//.open();
+    const pdfDocGenerator = pdfMake.createPdf(docdefinition);
+    pdfDocGenerator.getBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
 
    
 }
