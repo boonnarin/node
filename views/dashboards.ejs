@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+         h2 {
+            color: #333;
+        }
+        .bar {
+            background-color: #5d5d5d;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .bar:hover {
+            background-color: #000000;
+        }
+        .extra-info {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+    </style>
+
+</head>
+
+</body>
+<%- include('headers') %>
+<div id="main">
+<div class="dashboard">
+    <div class="chart-container">
+        <canvas id="pressureChart"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="sugarChart" style="max-width: 100%; height: 400px;"></canvas>
+    </div>
+</div>
+<div class="status-container">
+    <h2>Health Status</h2>
+    <p>รอเชื่อมข้อมูล</p>
+    <div class="bar" onclick="toggleInfo() ">เเสดงข้อมูล</div>
+    <div class="extra-info" id="extraInfo">
+        <p>ข้อมูลเพิ่มเติม</p>
+        <ul>
+            <li>ระดับค่าความดันอยู่ในเกณฑ์ที่....</li>
+            <li>ระดับความเสี่ยง</li>
+
+        </ul>
+    </div>
+</div>
+</div>
+<script>
+    // Correctly stringify the healthData object for use in JavaScript
+    const healthData = <%- JSON.stringify(healthData) %>;
+</script>
+<script>
+    function toggleInfo() {
+        var extraInfo = document.getElementById("extraInfo");
+        if (extraInfo.style.display === "none") {
+            extraInfo.style.display = "block";
+        } else {
+            extraInfo.style.display = "none";
+        }
+    }
+</script>
+<script src="js/chartsSbp.js"></script>
+
+</body>
+</html>

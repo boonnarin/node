@@ -1,0 +1,31 @@
+// controllers/locationController.js
+const locationService = require('../services/locationServiceDB');
+
+exports.getProvinces = (req, res) => {
+    locationService.getProvinces((error, results) => {
+      if (error) {
+        return res.status(500).json({ message: 'Error retrieving provinces' });
+      }
+      res.json(results);
+    });
+  };
+  
+  exports.getDistrictsByProvince = (req, res) => {
+    const { provinceId } = req.params;
+    locationService.getDistrictsByProvince(provinceId, (error, results) => {
+      if (error) {
+        return res.status(500).json({ message: 'Error retrieving districts' });
+      }
+      res.json(results);
+    });
+  };
+  
+  exports.getSubdistrictsByDistrict = (req, res) => {
+    const { districtId } = req.params;
+    locationService.getSubdistrictsByDistrict(districtId, (error, results) => {
+      if (error) {
+        return res.status(500).json({ message: 'Error retrieving subdistricts' });
+      }
+      res.json(results);
+    });
+  };

@@ -1,0 +1,29 @@
+/* Dashboard.css */
+.dashboard {
+  flex: 1;
+  padding: 1rem;
+
+}
+
+.stats-cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.chart-and-feeds {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem; /* เพิ่มระยะห่างระหว่าง Dashboard กับ Feeds */
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        
+
+        .menu-bar {
+            display: none;
+            flex-direction: column;
+            background-color: #333;
+            width: 200px;
+            position: fixed;
+            top: 60px; /* ตำแหน่งต่อจาก header */
+            left: 0;
+            height: calc(100% - 60px); /* ความสูงทั้งหมดของหน้าเว็บลบกับความสูงของ header */
+            padding-top: 20px;
+            box-shadow: 2px 0px 5px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        .menu-bar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+        .menu-bar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            margin-top: 60px; /* ความสูงของ header */
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .content.menu-open {
+            margin-left: 200px;
+        }
+
+        .menu-toggle {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            position: fixed;
+            top: 70px; /* ตำแหน่งที่อยู่ใต้ header */
+            left: 10px;
+            z-index: 3;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="/images/logo.png" alt="Logo">
+            <img src="/images/Logo_su.png" alt="Logo_su" style="width: 60px; height: auto;">
+            <div class="header-text">
+                <div class="header-title">Computer-Based Technology in Enhancing Cardiovascular Disease Risk Assessment</div>
+                <div class="header-subtitle">by Phramongkutklao College of Medicine & Silpakorn University</div>
+            </div>
+        </div>
+        <div class="right-buttons">
+            <div class="dropdown">
+                <button>&#8942;</button> <!-- Vertical ellipsis icon -->
+                <div class="dropdown-content">
+                    <a href="/">หน้าหลัก</a>
+                    <a href="/about">About Me</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <a href="/login" class="login-button" id="loginbutton">SignIn</a>
+        </div>
+    </header>
+
+
+
+    <div class="content" id="content">
+        
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menuBar = document.getElementById('menuBar');
+            var content = document.getElementById('content');
+            if (menuBar.style.display === 'flex') {
+                menuBar.style.display = 'none';
+                content.classList.remove('menu-open');
+            } else {
+                menuBar.style.display = 'flex';
+                content.classList.add('menu-open');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var loginButton = document.getElementById('loginbutton');
+            var userName = localStorage.getItem('username'); // สมมุติว่าชื่อผู้ใช้ถูกจัดเก็บใน Local Storage
+
+            if (userName) {
+                loginButton.textContent = userName;
+                loginButton.href = "/profile"; // เปลี่ยนลิงค์ไปยังหน้าโปรไฟล์ผู้ใช้
+            }
+        });
+
+        // ตัวอย่างวิธีการตั้งค่า Local Storage เมื่อผู้ใช้ SignIn
+        // นี่เป็นเพียงตัวอย่าง ในการใช้งานจริงคุณจะต้องทำการตั้งค่าเมื่อผู้ใช้ SignIn สำเร็จ
+        function signIn(username) {
+            localStorage.setItem('username', username);
+            window.location.reload(); // รีโหลดหน้าเพื่ออัพเดตปุ่ม SignIn
+        }
+
+        // ตัวอย่างการเรียกฟังก์ชัน signIn (ควรเรียกใช้เมื่อผู้ใช้ SignIn สำเร็จ)
+        // signIn('JohnDoe');
+    </script>
+</body>
+</html>

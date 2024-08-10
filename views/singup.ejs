@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/stys.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        .fs-6 {
+            font-size: 2rem !important;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('header') %>
+        <main>
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
+                                <form action="/signup" method="post" id="registrationForm" class="row gy-2">
+
+
+                                    <!-- First Name -->
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name (ชื่อ)</label>
+                                        <input type="text" class="form-control" name="firstName" id="firstName"
+                                            placeholder="กรุณากรอก" required>
+                                    </div>
+
+                                    <!-- Last Name -->
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name (นามสกุล)</label>
+                                        <input type="text" class="form-control" name="lastName" id="lastName"
+                                            placeholder="กรุณากรอก" required>
+                                    </div>
+
+                                    <!-- Date of Birth -->
+                                    <div class="col-12">
+                                        <label for="dob" class="form-label">Date of Birth (วัน/เดือน/ปีเกิด)</label>
+                                        <input type="date" class="form-control" name="dob" id="dob"
+                                            placeholder="กรุณากรอก" required>
+                                    </div>
+
+                                    <!-- Citizen ID -->
+                                    <div class="col-12">
+                                        <label for="NationlID" class="form-label">Nationl ID (เลขบัตรประชาชน 13
+                                            หลัก)</label>
+                                        <input type="text" class="form-control" name="NationlID" id="NationlID"
+                                            minlength="13" maxlength="13" pattern="[0-9]{13}" placeholder="กรุณากรอก"
+                                            required>
+                                        <div class="invalid-feedback">Please enter a valid 13-digit Nationl ID.</div>
+                                    </div>
+
+                                    <!-- phone numder-->
+                                    <div class="col-12">
+                                        <label for="PhoneNumber" class="form-label">Phone
+                                            Number(หมายเลขโทรศัพร์)</label>
+                                        <input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber"
+                                            minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="กรุณากรอก"
+                                            required>
+                                        <div class="invalid-feedback">Please enter a valid</div>
+                                    </div>
+                                    <!-- Address -->
+                                    <div class="col-12">
+                                        <label for="address" class="form-label">Address (ที่อยู่)</label>
+                                        <textarea class="form-control" id="address" name="address" rows="3"
+                                            placeholder="กรุณากรอกที่อยู่ของท่าน" required></textarea>
+                                    </div>
+
+                                    
+                                    <!-- District -->
+                                    <div class="col-12">
+                                        <label for="district" class="form-label">District (อำเภอ)</label>
+                                        <input type="text" class="form-control" name="district" id="district" required>
+
+                                    </div>
+
+                                    <!-- Subdistrict -->
+                                    <div class="col-12">
+                                        <label for="subdistrict" class="form-label">Subdistrict (ตำบล)</label>
+                                        <input type="text" class="form-control" name="subdistrict" id="subdistrict"
+                                            required>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="province" class="form-label">Province (จังหวัด)</label>
+                                        <select class="form-select" id="province" name="province" required>
+                                            <option value="" selected disabled>Please select your province (กรุณาเลือกจังหวัดของท่าน)</option>
+                                        </select>
+                                        <input type="hidden" id="provinceID" name="provinceID">
+                                    </div>
+
+                                    <!-- Hospital Selection -->
+                                    <div class="col-12">
+                                        <label for="hospital" class="form-label">Hospital (โรงพยาบาล)</label>
+                                        <select class="form-select" id="hospital" name="hospital" required>
+                                            <option value="" selected disabled>Please select your hospital</option>
+                                        </select>
+                                    </div>
+                                   
+                            </div>
+                            <script>
+                                // ดึงข้อมูลจังหวัดจาก API และแสดงใน select
+                                fetch('/api/provinces')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const provinceSelect = document.getElementById('province');
+                                        data.forEach(province => {
+                                            const option = document.createElement('option');
+                                            option.value = province.ProvinceID;
+                                            option.textContent = province.ProvinceName;
+                                            provinceSelect.appendChild(option);
+                                        });
+                                    })
+                                    .catch(error => console.error('Error fetching provinces:', error));
+                            
+                                // ดึงข้อมูลโรงพยาบาลเมื่อเลือกจังหวัด
+                                document.getElementById('province').addEventListener('change', function () {
+                                    const provinceId = this.value;
+                                    const selectedOption = this.options[this.selectedIndex];
+                                    document.getElementById('provinceID').value = selectedOption.text; // Set the hidden input's value
+                            
+                                    fetch(`/api/hospitals/${provinceId}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            const hospitalSelect = document.getElementById('hospital');
+                                            hospitalSelect.innerHTML = '<option value="" selected disabled>Please select your hospital</option>';
+                                            data.forEach(hospital => {
+                                                const option = document.createElement('option');
+                                                option.value = hospital.HospitalID;
+                                                option.textContent = hospital.HospitalName;
+                                                hospitalSelect.appendChild(option);
+                                            });
+                                        })
+                                        .catch(error => console.error('Error fetching hospitals:', error));
+                                });
+                            </script>
+                            <!-- Submit Button -->
+                            <div class="col-12">
+                                <div class="d-grid my-3">
+                                    <button class="btn btn-primary btn-lg" type="submit">Register</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </main>
+        <%- include('footer') %>
+
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+            <script src="js/locationScript.js"></script>
+</body>
+
+</html>

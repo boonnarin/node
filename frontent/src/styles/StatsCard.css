@@ -1,0 +1,40 @@
+/* StatsCard.css */
+.stats-card {
+  flex: 1 1 calc(25% - 20px);
+    background-color: #ffffff;
+    /* margin: 10px; */
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    width: 23%;
+  }
+  
+  .stats-card h3 {
+    margin: 0;
+  }
+  
+  .stats-card p {
+    margin: 0;
+  }
+  
+  @media (max-width: 1200px) {
+    .stats-card {
+      flex: 1 1 calc(33.33% - 20px);
+    }
+  
+    .risk-chart, .feeds {
+      flex: 1 1 calc(100% - 20px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    /* .stats-cards, .chart-and-feeds {
+      flex-direction: column;
+    }
+   */
+    .stats-card, .risk-chart, .feeds {
+      flex: 1 1 100%;
+      margin: 10px 0;
+    }
+  }
+  

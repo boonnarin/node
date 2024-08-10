@@ -1,0 +1,39 @@
+/* Feeds.css */
+.feeds {
+  
+  background-color: #fff;
+  padding: 0.6rem;
+  border-radius: 5px;
+  width: 28%;
+}
+
+.feeds-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feeds-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1200px) {
+
+  .feeds {
+    flex: 1 1 calc(100% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-and-feeds {
+    flex-direction: column;
+  }
+
+  .feeds {
+    flex: 1 1 100%;
+    margin: 10px 0;
+    width: calc(100% - 20px); /* เพิ่มความกว้างเพื่อให้มีระยะห่าง */
+    /* เพิ่มความกว้างให้เต็มจอ */
+  }
+}

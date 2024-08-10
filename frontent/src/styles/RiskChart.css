@@ -1,0 +1,28 @@
+/* RiskChart.css */
+.risk-chart {
+  
+    background-color: #fff;
+    padding: 0.6rem;
+    border-radius: 5px;
+    width: 70%;
+  }
+  
+  .chart-placeholder {
+    height: 200px;
+    background-color: #e9ecef;
+  }
+  
+@media (max-width: 1200px) {
+
+  .risk-chart {
+    flex: 1 1 calc(100% - 20px);
+  }
+}
+@media (max-width: 768px) {
+
+.risk-chart {
+  flex: 1 1 100%;
+  margin: 10px 0;
+  width: calc(100% - 20px); /* เพิ่มความกว้างเพื่อให้มีระยะห่าง */
+  }
+}
